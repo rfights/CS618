@@ -14,7 +14,7 @@ try {
 
 const server = createServer(async (req, res) => {
   const db = client.db(dbName)
-  const users = db.collection
+  const users = db.collection('Users')
   const usersList = await users.find().toArray()
 
   res.statusCode = 200
