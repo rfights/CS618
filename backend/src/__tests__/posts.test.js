@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { describe, expect, test } from '@jest/globals'
-import { createPost } from '../services/posts.js'
+import { createPost } from '../service/posts.js'
 import { Post } from '../db/models/post.js'
 
 describe('creating posts', () => {
