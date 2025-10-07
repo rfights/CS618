@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { describe, expect, test } from '@jest/globals'
-import { createPost } from '../service/posts.js'
+import { createPost } from '../services/posts.js'
 import { Post } from '../db/models/post.js'
 
 describe('creating posts', () => {
@@ -8,7 +8,7 @@ describe('creating posts', () => {
     const post = {
       title: 'Hello Mongoose!',
       author: 'Ramey Fights',
-      contents: `This post is stored in a MongoDB database using Mongoose.`,
+      contents: 'This post is stored in a MongoDB database using Mongoose.',
       tags: ['mongoose', 'mongodb'],
     }
     const createdPost = await createPost(post)
@@ -18,6 +18,7 @@ describe('creating posts', () => {
     expect(foundPost.createdAt).toBeInstanceOf(Date)
     expect(foundPost.updatedAt).toBeInstanceOf(Date)
   })
+
   test('without title should fail', async () => {
     const post = {
       author: 'Ramey Fights',
