@@ -1,7 +1,69 @@
 import mongoose from 'mongoose'
-import { describe, expect, test } from '@jest/globals'
-import { createPost } from '../services/posts.js'
+import { describe, expect, test, beforeEach } from '@jest/globals'
+import {
+  createPost,
+  listAllPosts,
+  listPostsByAuthor,
+  listPostsByTag,
+} from '../services/posts.js'
 import { Post } from '../db/models/post.js'
+
+const samplePosts = [
+  { title: 'Learning Redux', author: 'Ramey Fights', tags: ['redux'] },
+  { title: 'Learn React Hooks', author: 'Ramey Fights', tags: ['react'] },
+  {
+    title: 'Full-Stack React Projects',
+    author: 'Ramey Fights',
+    tags: ['react', 'nodejs'],
+  },
+  { title: 'Guide to TypeScript' },
+]
+
+let createdSamplePosts = []
+beforeEach(async () => {
+  await Post.deleteMany({})
+  createdSamplePosts = []
+  for (const post of samplePosts) {
+    const createdPost = new Post(post)
+    createdSamplePosts.push(await createdPost.save())
+  }
+})
+
+describe('listing posts', () => {
+  test('should return all posts', async () => {
+    const posts = await listAllPosts()
+    expect(posts.length).toEqual(createdSamplePosts.length)
+  })
+  test('should be able to filter posts by tag', async () => {
+    const posts = await listPostsByTag('nodejs')
+    expect(posts.length).toBe(1)
+  })
+  test('should be able to filter posts by author', async () => {
+    const posts = await listPostsByAuthor('Ramey Fights')
+    expect(posts.length).toBe(3)
+  })
+  test('should return posts sorted by creation date descendingby default', async () => {
+    const posts = await listAllPosts()
+    const sortedSamplePosts = createdSamplePosts.sort(
+      (a, b) => b.createdAt - a.createdAt,
+    )
+    expect(posts.map((post) => post.createdAt)).toEqual(
+      sortedSamplePosts.map((post) => post.createdAt),
+    )
+  })
+  test('should take into account provided sorting options', async () => {
+    const posts = await listAllPosts({
+      sortBy: 'updatedAt',
+      sortOrder: 'ascending',
+    })
+    const sortedSamplePosts = createdSamplePosts.sort(
+      (a, b) => a.updatedAt - b.updatedAt,
+    )
+    expect(posts.map((post) => post.updatedAt)).toEqual(
+      sortedSamplePosts.map((post) => post.updatedAt),
+    )
+  })
+})
 
 describe('creating posts', () => {
   test('with all parameters should succeed', async () => {
