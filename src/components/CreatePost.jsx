@@ -8,6 +8,7 @@ export function CreatePost() {
   const [contents, setContents] = useState('')
 
   const queryClient = useQueryClient()
+
   const createPostMutation = useMutation({
     mutationFn: () => createPost({ title, author, contents }),
     onSuccess: () => {
