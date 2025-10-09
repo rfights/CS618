@@ -35,6 +35,7 @@ jobs:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/blog-backend:latest
           region: ${{ secrets.GOOGLECLOUD_REGION }}
       - name: Build and push frontend image
+        id: build-frontend 
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -47,5 +48,5 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v1
         with:
           service: blog-frontend
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/blog-frontend:{{ steps.deploy-frontend.outputs.digest }}
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/blog-frontend:{{ steps.build-frontend.outputs.digest }}
           region: ${{ secrets.GOOGLECLOUD_REGION }}
