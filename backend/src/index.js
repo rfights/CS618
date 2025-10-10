@@ -4,7 +4,7 @@ dotenv.config()
 import { initDatabase } from './db/init.js'
 
 import { app } from './app.js'
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT
 
 await initDatabase()
 app.listen(PORT, () => {
