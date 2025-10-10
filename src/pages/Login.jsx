@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate, Link } from 'react-router-dom'
@@ -10,6 +9,7 @@ export function Login() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
+  const [, setToken] = useAuth()
 
   const loginMutation = useMutation({
     mutationFn: () => login({ username, password }),
