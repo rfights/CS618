@@ -1,4 +1,14 @@
-import { createUser, loginUser } from '../services/users.js'
+import { createUser, loginUser, getUserInfoById } from '../services/users.js'
+
+// eslint-disable-next-line no-undef
+app.get('/api/v1/users/:id', async (req, res) => {
+  try {
+    const userInfo = await getUserInfoById(req.params.id)
+    return res.status(200).json(userInfo)
+  } catch (err) {
+    return res.status(404).json({ error: 'User not found' })
+  }
+})
 
 export function userRoutes(app) {
   app.post('/api/v1/user/signup', async (req, res) => {
