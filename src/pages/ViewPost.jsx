@@ -6,6 +6,7 @@ import { Header } from '../components/Header.jsx'
 import { Post } from '../components/Post.jsx'
 import { getPostById } from '../api/posts.js'
 import { getUserInfo } from '../api/users.js'
+import { PostStats } from '../components/PostStats.jsx'
 
 function truncate(str, max = 160) {
   if (!str) return str
@@ -52,7 +53,14 @@ export function ViewPost({ postId }) {
       <Link to='/'>Back to main page</Link>
       <br />
       <hr />
-      {post ? <Post {...post} fullPost /> : `Post with id ${postId} not found.`}
+      {post ? (
+        <>
+          <Post {...post} fullPost />
+          <PostStats postId={postId} />
+        </>
+      ) : (
+        `Post with id ${postId} not found.`
+      )}
     </div>
   )
 }
