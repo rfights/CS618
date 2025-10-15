@@ -7,9 +7,7 @@ export function User({ id }) {
     queryKey: ['users', id],
     queryFn: () => getUserInfo(id),
   })
-
   const userInfo = userInfoQuery.data ?? {}
-
   return <strong>{userInfo?.username ?? id}</strong>
 }
 

@@ -4,17 +4,15 @@ import { createPost } from '../api/posts.js'
 import { useAuth } from '../contexts/AuthContext.jsx'
 
 export function CreatePost() {
-  const [title, setTitle] = useState('')
-  const [contents, setContents] = useState('')
   const [token] = useAuth()
 
-  const queryClient = useQueryClient()
+  const [title, setTitle] = useState('')
+  const [contents, setContents] = useState('')
 
+  const queryClient = useQueryClient()
   const createPostMutation = useMutation({
     mutationFn: () => createPost(token, { title, contents }),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['posts'])
-    },
+    onSuccess: () => queryClient.invalidateQueries(['posts']),
   })
 
   const handleSubmit = (e) => {
@@ -36,7 +34,7 @@ export function CreatePost() {
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
-
+      <br />
       <textarea
         value={contents}
         onChange={(e) => setContents(e.target.value)}

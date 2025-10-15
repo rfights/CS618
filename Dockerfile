@@ -1,11 +1,10 @@
-FROM node:20 AS build
-ARG VITE_BACKEND_URL=https://cautious-space-engine-x5rwjq5jv7rjf5qq-3001.app.github.dev/
+FROM node:latest AS build
+ARG VITE_BACKEND_URL=http://localhost:3001/api/v1
 WORKDIR /build
 COPY package.json .
 COPY package-lock.json .
 RUN npm install
 COPY . .
-
 RUN npm run build
 
 FROM nginx AS final

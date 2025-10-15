@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+
 const postSchema = new Schema(
   {
     title: { type: String, required: true },
@@ -8,4 +9,5 @@ const postSchema = new Schema(
   },
   { timestamps: true },
 )
+
 export const Post = mongoose.model('post', postSchema)

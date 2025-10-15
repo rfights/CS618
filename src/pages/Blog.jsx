@@ -1,13 +1,10 @@
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { PostList } from '../components/PostList.jsx'
 import { CreatePost } from '../components/CreatePost.jsx'
 import { PostFilter } from '../components/PostFilter.jsx'
 import { PostSorting } from '../components/PostSorting.jsx'
-
 import { Header } from '../components/Header.jsx'
-
-import { useState } from 'react'
-
-import { useQuery } from '@tanstack/react-query'
 import { getPosts } from '../api/posts.js'
 
 export function Blog() {
@@ -19,7 +16,6 @@ export function Blog() {
     queryKey: ['posts', { author, sortBy, sortOrder }],
     queryFn: () => getPosts({ author, sortBy, sortOrder }),
   })
-
   const posts = postsQuery.data ?? []
 
   return (

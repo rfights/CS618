@@ -23,6 +23,5 @@ export const getUserInfo = async (id) => {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   })
-  if (!res.ok) throw new Error('failed to fetch user info')
   return await res.json()
 }

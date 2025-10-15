@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate, Link } from 'react-router-dom'
-import { login } from '../api/users.js'
 
+import { login } from '../api/users.js'
 import { useAuth } from '../contexts/AuthContext.jsx'
 
 export function Login() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
   const navigate = useNavigate()
   const [, setToken] = useAuth()
 
@@ -17,7 +18,7 @@ export function Login() {
       setToken(data.token)
       navigate('/')
     },
-    onError: () => alert('failed to log in!'),
+    onError: () => alert('failed to login!'),
   })
 
   const handleSubmit = (e) => {
@@ -29,6 +30,7 @@ export function Login() {
     <form onSubmit={handleSubmit}>
       <Link to='/'>Back to main page</Link>
       <hr />
+      <br />
       <div>
         <label htmlFor='create-username'>Username: </label>
         <input
