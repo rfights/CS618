@@ -1,13 +1,13 @@
+import { requireAuth } from '../middleware/jwt.js'
 import {
+  createPost,
   listAllPosts,
   listPostsByAuthor,
   listPostsByTag,
   getPostById,
-  createPost,
   updatePost,
   deletePost,
 } from '../services/posts.js'
-import { requireAuth } from '../middleware/jwt.js'
 
 export function postsRoutes(app) {
   app.get('/api/v1/posts', async (req, res) => {
@@ -35,11 +35,15 @@ export function postsRoutes(app) {
     const { id } = req.params
     try {
       const post = await getPostById(id)
-      if (post === null) return res.status(404).end()
+      if (post === null) {
+        return res.status(404).json({ error: 'Post not found' })
+      }
       return res.json(post)
     } catch (err) {
       console.error('error getting post', err)
-      return res.status(500).end()
+      return res
+        .status(500)
+        .json({ error: 'Server error', details: err.message })
     }
   })
 
