@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react'
+import { createContext, useState, useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 export const AuthContext = createContext({
@@ -7,7 +7,19 @@ export const AuthContext = createContext({
 })
 
 export const AuthContextProvider = ({ children }) => {
-  const [token, setToken] = useState(null)
+  const [token, setTokenState] = useState(() => localStorage.getItem('token'))
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem('token', token)
+    } else {
+      localStorage.removeItem('token')
+    }
+  }, [token])
+
+  const setToken = (newToken) => {
+    setTokenState(newToken)
+  }
 
   return (
     <AuthContext.Provider value={{ token, setToken }}>
@@ -15,7 +27,6 @@ export const AuthContextProvider = ({ children }) => {
     </AuthContext.Provider>
   )
 }
-
 AuthContextProvider.propTypes = {
   children: PropTypes.element.isRequired,
 }

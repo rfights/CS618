@@ -7,16 +7,8 @@ export function userRoutes(app) {
       return res.status(201).json({ username: user.username })
     } catch (err) {
       return res.status(400).json({
-        error: 'Failed to create the user, does the username already exist?',
+        error: 'failed to create the user, does the username already exist?',
       })
-    }
-  })
-  app.get('/api/v1/users/:id', async (req, res) => {
-    try {
-      const userInfo = await getUserInfoById(req.params.id)
-      return res.status(200).json(userInfo)
-    } catch (err) {
-      return res.status(404).json({ error: 'User not found' })
     }
   })
 
@@ -29,5 +21,10 @@ export function userRoutes(app) {
         error: 'login failed, did you enter the correct username/password?',
       })
     }
+  })
+
+  app.get('/api/v1/users/:id', async (req, res) => {
+    const userInfo = await getUserInfoById(req.params.id)
+    return res.status(200).send(userInfo)
   })
 }
