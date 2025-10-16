@@ -1,3 +1,6 @@
+PostStats.propTypes = {
+  postId: PropTypes.string.isRequired,
+}
 import { useQuery } from '@tanstack/react-query'
 import PropTypes from 'prop-types'
 import {
@@ -77,8 +80,4 @@ export function PostStats({ postId }) {
       </div>
     </div>
   )
-}
-
-PostStats.propTypes = {
-  postId: PropTypes.string.isRequired,
 }
