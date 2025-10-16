@@ -19,6 +19,6 @@ services:
       args:
         VITE_BACKEND_URL: http://localhost:3001/api/v1
     ports:
-      - '3000:80'
+      - '3001:80'
     depends_on:
       - blog-backend
