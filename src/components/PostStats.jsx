@@ -1,6 +1,3 @@
-PostStats.propTypes = {
-  postId: PropTypes.string.isRequired,
-}
 import { useQuery } from '@tanstack/react-query'
 import PropTypes from 'prop-types'
 import {
@@ -63,9 +60,13 @@ export function PostStats({ postId }) {
           containerComponent={
             <VictoryVoronoiContainer
               voronoiDimension='x'
-              labels={({ datum }) =>
-                `${datum.x.toLocaleDateString()}: ${datum.y.toFixed(2)} minutes`
-              }
+              labels={({ datum }) => {
+                let dateObj =
+                  datum.x instanceof Date ? datum.x : new Date(datum.x)
+                return `${dateObj.toLocaleDateString()}: ${datum.y.toFixed(
+                  2,
+                )} minutes`
+              }}
               labelComponent={<VictoryTooltip />}
             />
           }
@@ -80,4 +81,8 @@ export function PostStats({ postId }) {
       </div>
     </div>
   )
+}
+
+PostStats.propTypes = {
+  postId: PropTypes.string.isRequired,
 }

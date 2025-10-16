@@ -4,7 +4,7 @@ dotenv.config()
 import { initDatabase } from './src/db/init.js'
 import { Post } from './src/db/models/post.js'
 import { User } from './src/db/models/user.js'
-import { Event } from './src/db/models/events.js'
+import { Event } from './src/db/models/event.js'
 import { createUser } from './src/services/users.js'
 import { createPost } from './src/services/posts.js'
 import { trackEvent } from './src/services/events.js'

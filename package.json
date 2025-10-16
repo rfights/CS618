@@ -31,7 +31,8 @@
     "react-router-dom": "^6.21.0",
     "slug": "^8.2.3",
     "uuid": "^13.0.0",
-    "victory": "^36.9.1"
+    "victory": "^36.9.1",
+    "ws": "^8.18.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
